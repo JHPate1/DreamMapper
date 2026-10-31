@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07060f" />
+<title>Your dreams  -  Dream Mapper</title>
+<meta name="description" content="Your dream map: overview, explorer, and relived dreams." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <canvas id="stars"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="moon"></div>
+  <div class="mist m1"></div>
+  <div class="mist m2"></div>
+</div>
+
+<div class="app">
+
+  <header class="app-bar">
+    <a class="brand" href="/" aria-label="Dream Mapper home">
+      <span>Dream</span><span class="brand-accent">Mapper</span>
+    </a>
+
+    <nav class="pill-nav" aria-label="Dashboard sections">
+      <a class="active" href="#overview">Overview</a>
+      <a href="#explorer">Explorer</a>
+    </nav>
+
+    <div class="app-tools">
+      <button class="icon-btn" type="button" id="refreshBtn" aria-label="Refresh dreams">↻</button>
+      <button class="icon-btn" type="button" id="chatOpenBtn" aria-label="Open chat">☾</button>
+      <button class="icon-btn" type="button" id="settingsOpenBtn" aria-label="Open settings">⚙</button>
+      <span class="avatar" id="userAvatar" aria-hidden="true"></span>
+      <button class="btn ghost" id="logoutBtn" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <section id="overview" aria-labelledby="welcomeTitle">
+      <div class="welcome">
+        <h1 id="welcomeTitle">Welcome back, <span id="welcomeName">dreamer</span></h1>
+        <div class="segmented" role="group" aria-label="Time range">
+          <button type="button" data-range="week">Week</button>
+          <button type="button" class="active" data-range="month">Month</button>
+          <button type="button" data-range="year">Year</button>
+        </div>
+      </div>
+
+      <div class="ov-top">
+        <div class="panel stat-hero">
+          <p class="stat-label">Dreams logged</p>
+          <p class="stat-big"><span id="statCount">0</span> <span class="delta" id="statDelta">+0</span></p>
+          <p class="stat-sub" id="statSub">Nothing here yet</p>
+          <div class="hero-actions">
+            <button class="btn solid" type="button" id="logOpenBtn">Log dream</button>
+            <a class="btn ghost" href="#explorer">Explore</a>
+          </div>
+        </div>
+
+        <div class="panel ov-right">
+          <div class="avg-line"><span id="avgLine">Average - 0 dreams a night</span></div>
+
+          <div class="stat-split">
+            <div class="stat-block">
+              <p class="stat-value" id="statVivid">0</p>
+              <p class="stat-delta"><span class="delta" id="vividDelta">+0%</span> vivid</p>
+              <div class="bar-track"><span class="bar-fill" id="vividBar" style="width:0%"></span></div>
+              <p class="stat-foot" id="vividFoot">last 30 nights</p>
+            </div>
+
+            <div class="stat-block">
+              <p class="stat-value" id="statSymbol">-</p>
+              <p class="stat-delta"><span class="delta" id="symbolDelta">+0%</span> recurring</p>
+              <div class="bars" id="symbolBars" aria-hidden="true"></div>
+              <p class="stat-foot">most seen symbol</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ov-cards">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-ico" aria-hidden="true">◎</span>
+            <h2>Dream rhythm</h2>
+          </div>
+          <div class="legend">
+            <span class="dot mint"></span> Dreams
+            <span class="dot ghost"></span> Vivid
+          </div>
+          <svg class="chart" id="rhythmChart" viewBox="0 0 320 150" preserveAspectRatio="none" role="img" aria-label="Dreams logged over time"></svg>
+          <div class="chart-labels" id="chartLabels"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-ico" aria-hidden="true">▦</span>
+            <h2>Dream calendar</h2>
+          </div>
+          <div class="cal">
+            <div class="cal-months" id="calMonths" aria-hidden="true"></div>
+            <div class="cal-body">
+              <div class="cal-days" aria-hidden="true">
+                <span>M</span><span></span><span>W</span><span></span><span>F</span><span></span><span>S</span>
+              </div>
+              <div class="cal-grid" id="calGrid" role="grid" aria-label="Nights you dreamed"></div>
+            </div>
+            <div class="cal-legend">
+              <span>Less</span>
+              <i style="--o:.15"></i><i style="--o:.45"></i><i style="--o:.7"></i><i style="--o:1"></i>
+              <span>More</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-ico" aria-hidden="true">☾</span>
+            <h2>Recent dreams</h2>
+          </div>
+          <ul class="recent" id="recentList"></ul>
+          <p class="panel-empty hidden" id="recentEmpty">No dreams logged yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="explorer" class="dash-section" aria-labelledby="explorerLabel">
+      <div class="section-head">
+        <h2 id="explorerLabel">Dream <em>Explorer</em></h2>
+        <p>Revisit a dream, change its details, or relive the vivid ones.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter dreams">
+        <button class="filter active" type="button" data-filter="all">All</button>
+        <button class="filter" type="button" data-filter="vivid">Vivid</button>
+        <button class="filter" type="button" data-filter="week">This week</button>
+      </div>
+
+      <div class="dream-grid" id="dreamGrid"></div>
+
+      <div id="emptyState" class="empty-state hidden">
+        <span class="empty-moon" aria-hidden="true">☾</span>
+        <p>No dreams here yet. The first one is always the hardest to remember.</p>
+        <button class="btn solid" type="button" id="emptyLogBtn">Log your first dream</button>
+      </div>
+    </section>
+
+    <p class="disclaimer">Dream Mapper shows patterns, never meanings. It is not a mental-health tool.</p>
+  </div>
+</div>
+
+<!-- Log dream modal -->
+<dialog id="logModal" class="auth-modal" aria-labelledby="logTitle">
+  <button class="modal-close" id="logCloseBtn" type="button" aria-label="Close">×</button>
+  <h2 id="logTitle" class="auth-title">Log last night</h2>
+  <p class="modal-sub">Write it while it's still warm. Half-remembered is fine.</p>
+  <div class="log-panel">
+    <textarea id="dreamText" class="dream-input" rows="5" minlength="20" maxlength="4000"
+      placeholder="I was walking through my old school, but the hallways were underwater…" aria-label="Your dream"></textarea>
+    <div class="capture-row">
+      <label class="date-wrap" for="dreamDate">
+        <span>Dreamed on</span>
+        <input type="date" id="dreamDate" class="dream-date" />
+      </label>
+      <span id="charCount" class="char-count">0 / 4000</span>
+      <button id="saveBtn" class="btn solid" type="button">Save dream</button>
+    </div>
+    <p id="statusArea" class="status" role="status" aria-live="polite"></p>
+  </div>
+</dialog>
+
+<!-- Edit dream modal -->
+<dialog id="editModal" class="auth-modal" aria-labelledby="editTitle">
+  <button class="modal-close" id="editCloseBtn" type="button" aria-label="Close">×</button>
+  <h2 id="editTitle" class="auth-title">Change the details</h2>
+  <p class="modal-sub" id="editSub">Dreams shift as you remember more. Add what came back to you.</p>
+  <form id="editForm" class="auth-form">
+    <label class="field">
+      <span>The dream</span>
+      <textarea id="editText" class="dream-input" rows="5" maxlength="4000"></textarea>
+    </label>
+    <label class="field">
+      <span>Dreamed on</span>
+      <input type="date" id="editDate" class="dream-date" />
+    </label>
+    <p class="auth-error" id="editError" role="alert"></p>
+    <div class="modal-actions">
+      <button class="btn ghost" type="button" id="editCancelBtn">Cancel</button>
+      <button class="btn solid" type="submit">Save changes</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Relive modal -->
+<dialog id="reliveModal" class="auth-modal" aria-labelledby="reliveTitle">
+  <button class="modal-close" id="reliveCloseBtn" type="button" aria-label="Close">×</button>
+  <div class="relive-head">
+    <h2 id="reliveTitle" class="auth-title">Relive this dream</h2>
+    <span class="beta-tag">beta</span>
+  </div>
+  <p class="modal-sub" id="reliveSub">-</p>
+  <p class="relive-desc">
+    We'll turn this vivid dream into a short moving picture. Rendering happens slowly, on our side.
+    Expect up to <strong>5 hours</strong>. When it's ready, the video appears on the dream's card and stays for 30 days.
+  </p>
+  <div class="modal-actions">
+    <button class="btn ghost" type="button" id="reliveCancelBtn">Not tonight</button>
+    <button class="btn solid" type="button" id="reliveConfirmBtn">Relive it</button>
+  </div>
+</dialog>
+
+<!-- Chat modal -->
+<dialog id="chatModal" class="auth-modal" aria-labelledby="chatTitle">
+  <button class="modal-close" id="chatCloseBtn" type="button" aria-label="Close">×</button>
+  <h2 id="chatTitle" class="auth-title">Dream chat</h2>
+  <p class="modal-sub">Talk through a dream. Symbols you mention get saved to your map.</p>
+  <div class="chat-log" id="chatLog" aria-live="polite"></div>
+  <div class="chat-input-row">
+    <textarea id="chatInput" class="dream-input" rows="2" maxlength="2000"
+      placeholder="What did the water mean?"></textarea>
+    <button id="chatSendBtn" class="btn solid" type="button">Send</button>
+  </div>
+  <p class="status" id="chatStatus" role="status"></p>
+  <div class="symbol-cloud" id="symbolCloud"></div>
+</dialog>
+
+<!-- Settings modal -->
+<dialog id="settingsModal" class="auth-modal" aria-labelledby="settingsTitle">
+  <button class="modal-close" id="settingsCloseBtn" type="button" aria-label="Close">×</button>
+  <h2 id="settingsTitle" class="auth-title">Settings</h2>
+  <p class="modal-sub">Change your name, dial in your reading, or export everything.</p>
+  <div class="settings-panel">
+    <label class="field">
+      <span>Display name</span>
+      <input type="text" id="settingsName" maxlength="60" placeholder="How should we greet you?" />
+    </label>
+    <label class="field">
+      <span>Reading style</span>
+      <textarea id="settingsAi" rows="4" maxlength="2000"
+        placeholder="e.g. Be poetic and gentle. Focus on recurring symbols."></textarea>
+    </label>
+    <label class="field">
+      <span>Profile picture</span>
+      <input type="file" id="avatarFile" accept="image/*" />
+    </label>
+    <div class="modal-actions">
+      <button class="btn ghost" type="button" id="exportBtn">Export my data</button>
+      <button class="btn solid" type="button" id="settingsSaveBtn">Save settings</button>
+    </div>
+    <p class="status" id="settingsStatus" role="status"></p>
+  </div>
+</dialog>
+
+<script src="js/stars.js" defer></script>
+<script src="js/dashboard.js" defer></script>
+</body>
+</html>

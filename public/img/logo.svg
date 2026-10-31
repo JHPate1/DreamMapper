@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 48" width="210" height="48" role="img" aria-label="Dream Mapper">
+  <g transform="translate(2,4)">
+    <rect width="40" height="40" rx="11" fill="#120f24" stroke="#8b6cf0" stroke-width="1.5" />
+    <path fill="#ffc7a8" d="M20 8 C27 9 31 19 26 28 C23 33 17 35 12 33 C17 28 19 22 18 15 C17 11 15 8 12 7 C15 6 17 6 20 8 Z" />
+    <circle cx="28" cy="12" r="1.6" fill="#a9f0d4" />
+    <circle cx="31" cy="20" r="1.2" fill="#a9f0d4" />
+  </g>
+  <text x="52" y="32" font-family="Outfit, system-ui, sans-serif" font-size="22" font-weight="600" fill="#ece9f8">Dream</text>
+  <text x="112" y="32" font-family="Outfit, system-ui, sans-serif" font-size="22" font-weight="600" fill="#ffc7a8" font-style="italic">Mapper</text>
+</svg>

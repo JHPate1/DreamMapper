@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07060f" />
+<title>Create account  -  Dream Mapper</title>
+<meta name="description" content="Create a Dream Mapper account and start your dream log." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+<!-- ── Dream sky background ─────────────────────────────── -->
+<div class="sky" aria-hidden="true">
+  <canvas id="stars"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="moon"></div>
+  <div class="mist m1"></div>
+  <div class="mist m2"></div>
+</div>
+
+<!-- ── Green success banner ─────────────────────────────── -->
+<div id="successBanner" class="success-banner hidden" role="status" aria-live="polite">
+  <span class="banner-spinner" aria-hidden="true"></span>
+  <span id="successMsg">Account created  -  redirecting…</span>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────── -->
+<header class="nav">
+  <a class="logo" href="/" aria-label="Dream Mapper home">
+    <span>Dream<span class="logo-accent">Mapper</span></span>
+  </a>
+  <nav class="nav-actions" aria-label="Account">
+    <a class="btn ghost" href="login.html">Sign in</a>
+  </nav>
+</header>
+
+<main class="auth-page">
+  <section class="auth-card glass" aria-labelledby="authHeading">
+    <p class="auth-eyebrow">begin your dream log</p>
+    <h1 id="authHeading" class="auth-heading">Create your <em>account</em></h1>
+
+    <form id="registerForm" class="auth-form">
+      <label class="field">
+        <span>Email</span>
+        <input type="email" id="regEmail" autocomplete="email" required placeholder="you@example.com" />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" id="regPassword" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters" />
+      </label>
+      <label class="field">
+        <span>Confirm password</span>
+        <input type="password" id="regPassword2" autocomplete="new-password" minlength="8" required placeholder="Once more, to be sure" />
+      </label>
+      <p class="auth-note">By creating an account you agree that your dream text is used to paint and analyze it. You can delete everything at any time.</p>
+      <p class="auth-error" id="registerError" role="alert"></p>
+      <button class="btn solid wide" type="submit">Create account</button>
+    </form>
+
+    <p class="auth-switch">Already keeping a dream log? <a href="login.html">Sign in</a></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>☾ Dream Mapper</span>
+  <span>Your dreams stay yours  -  export or delete everything, any time.</span>
+</footer>
+
+<script src="js/stars.js" defer></script>
+<script src="js/auth.js" defer></script>
+</body>
+</html>

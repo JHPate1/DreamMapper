@@ -1,0 +1,24 @@
+name = "dream-mapper"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+# Static files: index.html, login.html, register.html, dashboard.html, css/, js/, img/
+[assets]
+directory = "./public"
+
+# Cloudflare D1
+[[d1_databases]]
+binding = "DB"
+database_name = "dream_mapper_main"
+database_id = "5f8be81a-4801-4bcc-9172-a88a0d91eb93"
+
+# Cloudflare R2 bucket for dream images
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "dream-mapper-images"
+
+[vars]
+RENDER_MODEL = "google/gemini-2.5-flash-image"
+
+# Put the model key in a secret, not here:
+# wrangler secret put MODEL_API_KEY

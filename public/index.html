@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#05040c" />
+<title>Dream Mapper  -  turn your dreams into art</title>
+<meta name="description" content="Tell it your dream, get a painting of it, and watch the patterns in your sleep appear over time." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="img/logo-mark.svg" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- ── Dream sky background ─────────────────────────────── -->
+<div class="sky" aria-hidden="true">
+  <canvas id="stars"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="moon"></div>
+  <div class="mist m1"></div>
+  <div class="mist m2"></div>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────── -->
+<header class="nav">
+  <a class="logo" href="/" aria-label="Dream Mapper home">
+    <span>Dream</span><span class="logo-accent">Mapper</span>
+  </a>
+  <nav class="nav-actions" aria-label="Account">
+    <div id="authArea" class="nav-group">
+      <button class="btn ghost" id="loginBtn" type="button">Sign in</button>
+      <button class="btn solid" id="registerBtn" type="button">Create account</button>
+    </div>
+    <div id="userArea" class="nav-group hidden">
+      <span class="user-hello" id="userHello"></span>
+      <button class="btn ghost" id="logoutBtn" type="button">Sign out</button>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <!-- ── Hero ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <p class="hero-eyebrow">a journal for the other life you live at night</p>
+    <h1 class="hero-title">Dream <em>Mapper</em></h1>
+    <p class="hero-sub">Tell it your dream, get a painting of it, and watch the patterns in your sleep appear over time.</p>
+  </section>
+
+  <!-- ── Capture ─────────────────────────────────────────── -->
+  <section class="capture glass" aria-labelledby="captureLabel">
+    <h2 id="captureLabel" class="capture-heading">What did you dream last night?</h2>
+    <p class="capture-hint">Write it while it's still warm  -  half-remembered is fine.</p>
+
+    <textarea id="dreamText" class="dream-input" rows="6" minlength="20" maxlength="4000"
+      placeholder="I was walking through my old school, but the hallways were underwater…"
+      aria-label="Your dream"></textarea>
+
+    <div class="capture-row">
+      <button id="micBtn" class="btn icon" type="button" aria-label="Speak your dream" hidden>
+        <span aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2.5" width="6" height="12" rx="3" />
+            <path d="M5.5 11a6.5 6.5 0 0 0 13 0" />
+            <path d="M12 17.5V21" />
+            <path d="M8.5 21h7" />
+          </svg>
+        </span>
+      </button>
+      <label class="date-wrap" for="dreamDate">
+        <span>Dreamed on</span>
+        <input type="date" id="dreamDate" class="dream-date" />
+      </label>
+      <span id="charCount" class="char-count">0 / 4000</span>
+    </div>
+
+    <button id="saveBtn" class="btn solid wide" type="button">Save dream</button>
+
+    <p id="statusArea" class="status" role="status" aria-live="polite"></p>
+    <p id="authPrompt" class="auth-prompt">Sign in to keep your dreams  -  it takes 20 seconds.</p>
+  </section>
+
+  <!-- ── How it works ─────────────────────────────────────── -->
+  <section class="steps" aria-label="How it works">
+    <article class="step glass">
+      <span class="step-num">01</span>
+      <h3>Capture it</h3>
+      <p>Type or speak the dream while it's still fresh. Under a minute, half-asleep allowed.</p>
+    </article>
+    <article class="step glass">
+      <span class="step-num">02</span>
+      <h3>Paint it</h3>
+      <p>Every dream becomes a surreal illustration in one consistent, dreamlike style.</p>
+    </article>
+    <article class="step glass">
+      <span class="step-num">03</span>
+      <h3>Map it</h3>
+      <p>Recurring symbols, places and feelings surface as a living map of your nights.</p>
+    </article>
+  </section>
+
+  <p class="disclaimer">Dream Mapper shows patterns, never meanings. It is not a mental-health tool.</p>
+</main>
+
+<footer class="footer">
+  <span>☾ Dream Mapper</span>
+  <span>Your dreams stay yours  -  export or delete everything, any time.</span>
+</footer>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
